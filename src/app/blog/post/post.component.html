@@ -1,0 +1,13 @@
+<div class="blog-post-detail" *ngIf="post!=null">
+  <h1><a [routerLink]="['/post',post.id]">{{post.title}}</a></h1>
+  <div> {{post.body}} </div>
+  <hr/>
+  <app-comments [comments]="comments" (postComment)="PostComment($event)"></app-comments>
+</div>
+<!-- <div  *ngIf="showDetails">
+  <h1><a [routerLink]="['/post',post.id]">{{post.title}}</a></h1>
+  <hr/>
+  <div> {{post.body}} </div>
+  <hr/>
+  <app-comments></app-comments>
+</div> -->

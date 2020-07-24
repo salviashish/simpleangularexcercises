@@ -1,0 +1,105 @@
+<h2>Template-Driven Form</h2><hr/>
+<form #standardForm="ngForm" name="standardForm" (ngSubmit)="validate(standardForm)" novalidate class="needs-validation">
+  <div class="container form-group">
+    <div class="item">
+      <span class="item">
+          <label for="name">Name * </label>
+      </span>
+      <span>
+        <input type="text" placeholder="Name" name="name" #name="ngModel" ngModel required minlength="10" maxLength="50" class="form-control">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+          <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="name.errors.minlength">
+            Name should be atleast 10 characters long.
+          </div>
+        </div>
+      </span>
+    </div>
+  <div class="item">
+      <span class="item">
+          <label for="name">Gender * </label>
+      </span>
+      <span>
+        <input type="radio" id="male" name="gender" #gender="ngModel" ngModel required value="male">
+        <label for="male">&nbsp;Male</label>&nbsp;
+        <input type="radio" id="female" name="gender" #gender ngModel required value="female">
+        <label for="female">&nbsp;Female</label>&nbsp;
+        <input type="radio" id="other" name="gender" #gender ngModel required value="other">
+        <label for="other">&nbsp;Other</label>      
+        <div *ngIf="gender.invalid && (standardForm.dirty || standardForm.touched)" class="alert alert-danger">
+            Gender is required.
+        </div>
+    </span>
+    </div>
+    <div class="item">
+      <span class="item">
+        <label for="addressLine1">Address * </label>
+      </span>
+      <span class="item">
+        <input type="text" placeholder="Street Address" name="addressLine1" #addressLine1="ngModel" ngModel required class="form-control">
+        <div *ngIf="addressLine1.invalid && (addressLine1.dirty || addressLine1.touched)" class="alert alert-danger">
+          Address Line1 is required.
+        </div>
+      </span>
+      <span class="item">
+      <input type="text" placeholder="Apartment, suite, unit, building, floor, etc." name="addressLine2" ngModel class="form-control"></span>
+      <span class="item">
+      <input type="text" placeholder="Department, c/o, etc." name="addressline3" ngModel class="form-control"></span>
+    </div>
+    <div class="item">
+      <span><label for="postalCode">ZIP Code *</label></span>
+      <input type="text" placeholder="PostalCode" name="postalCode" #zipcode="ngModel" minlength="5" maxlength="11" ngModel required validateZipCode="55423-6458" class="form-control">
+      <div *ngIf="zipcode.invalid && (zipcode.dirty || zipcode.touched)" class="alert alert-danger">
+        <div *ngIf="zipcode.errors.required">ZIP Code is required</div>
+        <div *ngIf="zipcode.errors.minlength">ZIP Code should atleast be 5 chars long</div>
+        <div *ngIf="zipcode.errors.invalidZipCode">ZIP Code format is invalid. Allowed format - {{ zipcode.errors.invalidZipCode.allowedFormat }}</div>
+      </div>
+      <span><label for="city">City *</label></span>
+      <input type="text" placeholder="City" name="city" #city="ngModel" ngModel required class="form-control">
+      <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">City is required</div>
+      <span><label for="city">State *</label></span>
+      <span class="item">
+      <select name="ddlState" #state="ngModel" ngModel required (change)="showSelectedState(state.value)" class="form-control">
+        <option *ngFor="let state of states;index as i" value="{{state}}">{{state}}</option>
+      </select>
+      <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">State is required</div>
+      </span>
+    </div>
+    <div class="item">
+      <span class="item">
+        <label for="email">Email *</label>
+      </span>
+      <span class="item">
+        <input type="email" placeholder="Email Address" name="emailAddress" #email="ngModel" ngModel class="form-control" required validateEmail="anonymous@gmail.com">
+        <div *ngIf="email.errors?.required && (email.dirty || email.touched)" class="alert alert-danger">Email is required</div>
+        <div *ngIf="email.errors?.invalidEmail && (email.dirty || email.touched)" class="alert alert-danger">
+          Email format is invalid. Acceptable format(s) {{email.errors.invalidEmail.allowedEmail}} </div>
+      </span>
+    </div>
+    <div class="item">
+      <span class="item">
+        <label for="email">Phone *</label>
+      </span>
+      <span class="item">
+        <input type="text" placeholder="Phone" name="phone" #phone="ngModel" ngModel class="form-control" required validatePhone="123-456-7890">
+        <div *ngIf="phone.errors?.required && (phone.dirty || phone.touched)" class="alert alert-danger">Phone is required</div>
+        <div *ngIf="phone.errors?.invalidPhone && (phone.dirty || phone.touched)" class="alert alert-danger">
+            {{phone.errors.invalidPhone.errorMessage}} Allowed format is {{phone.errors.invalidPhone.allowedFormat}}
+        </div>
+      </span>
+    </div>  
+    <div class="item">
+      * <input type="checkbox" name="acceptTermsPolicy" #tc="ngModel" ngModel required> I understand and accept terms and policies for submitting the information
+      <div *ngIf="tc.invalid && tc.touched" class="alert alert-danger">Accept Terms & Conditions required</div>
+    </div>
+    <div class="item">
+      <input type="submit" value="Submit">
+    </div>
+    <div class="item">
+      <p>Form Values : {{standardForm.value|json}}</p>
+      <p>Form Valid : {{standardForm.valid}}</p>
+    </div>
+  </div>
+</form>

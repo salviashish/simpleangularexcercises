@@ -1,0 +1,14 @@
+<div class="blog-container">
+	<div class="blog-post" *ngFor="let post of posts">
+		<h1><a [routerLink]="['./post',post.id]">{{post.title}}</a></h1>
+		<div style="background-color:#ccc;border-radius:5px; padding:5px;font: italic medium sans-serif">
+			<span>
+        <a href="#">
+          <img src="https://img.icons8.com/material-two-tone/24/000000/person-male.png"/>
+          {{post.author}}
+        </a>
+      </span>
+		</div>
+		<div> {{post.body}} </div>
+	</div>
+</div>

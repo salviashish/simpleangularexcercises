@@ -1,0 +1,19 @@
+<hr/>
+<div class="comments-container">
+  <div class="post-comment">
+    <form novalidate [formGroup]="commentsForm" (ngSubmit)="PostComment()">
+      <textarea style="width:100%;" formControlName="commentText"></textarea>
+      <input type="submit" value="Comment">
+      <span *ngIf="commentsForm.get('commentText').invalid && (commentsForm.get('commentText').dirty || commentsForm.get('commentText').touched)" style="color:red">
+        Please enter some comment before submitting.
+      </span>
+    </form>
+  </div><hr/>
+  <div class="comments" *ngFor="let comment of comments">
+    <span><img src="https://img.icons8.com/material-two-tone/24/000000/person-male.png"/></span>
+    <span>{{comment.name}}</span>
+    <p>{{comment.body}}</p>
+    <span><a href="#">Reply</a></span>
+    <hr/>
+  </div>
+</div>

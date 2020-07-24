@@ -1,0 +1,107 @@
+
+<h2>Reactive Forms</h2><hr/>
+  <form novalidate [formGroup]="myForm" (ngSubmit)="validate()">
+  <div class="container form-group">
+    <div class="item">
+      <span class="item">
+          <label for="name">Name * </label>
+      </span>
+      <span>
+        <input type="text" placeholder="Name" class="form-control" formControlName="name">
+        <div *ngIf="myForm.get('name').invalid && (myForm.get('name').dirty || myForm.get('name').touched)" class="alert alert-danger">
+          <div *ngIf="myForm.get('name').errors?.required">
+            Name is required.
+          </div>
+          <div *ngIf="myForm.get('name').errors?.minlength">
+            Name should be atleast 10 characters long.
+          </div>
+        </div>
+      </span>
+    </div>
+  <div class="item">
+      <span class="item">
+          <label for="name">Gender * </label>
+      </span>
+      <span>&nbsp;
+        <input type="radio" formControlName="gender" value="male">
+        <label for="male">&nbsp;Male</label>&nbsp;
+        <input type="radio" formControlName="gender" value="female">
+        <label for="female">&nbsp;Female</label>&nbsp;
+        <input type="radio" formControlName="gender" value="other">
+        <label for="other">&nbsp;Other</label>      
+        <div *ngIf="myForm.get('gender').invalid && (myForm.dirty || myForm.touched)" class="alert alert-danger">
+            Gender is required.
+        </div>
+    </span>
+    </div>
+    <div class="item">
+      <span class="item">
+        <label for="addressLine1">Address * </label>
+      </span>
+      <span class="item">
+        <input type="text" placeholder="Street Address" class="form-control" formControlName="address">
+        <div *ngIf="myForm.get('address').invalid && (myForm.get('address').dirty || myForm.get('address').touched)" class="alert alert-danger">
+          Address Line1 is required.
+        </div>
+      </span>
+    </div>
+    <div class="item">
+      <span><label for="postalCode">ZIP Code *</label></span>
+      <input type="text" placeholder="PostalCode" name="postalCode" class="form-control" formControlName="zipcode">
+      <div *ngIf="myForm.get('zipcode').invalid && (myForm.get('zipcode').dirty || myForm.get('zipcode').touched)" class="alert alert-danger">
+        <div *ngIf="myForm.get('zipcode').errors?.required">ZIP Code is required</div>
+        <div *ngIf="myForm.get('zipcode').errors?.minlength">ZIP Code should atleast be 5 chars long</div>
+        <div *ngIf="myForm.get('zipcode').errors?.maxlength">ZIP Code should not exceed 10 characters</div>
+        <div *ngIf="myForm.get('zipcode').errors?.invalidZipCode">ZIP Code format is invalid. Allowed format - {{ myForm.get('zipcode').errors.invalidZipCode.allowedFormat }}</div>
+      </div>
+      <span><label for="city">City *</label></span>
+      <input type="text" placeholder="City" class="form-control" formControlName="city">
+      <div *ngIf="myForm.get('city').invalid && (myForm.get('city').dirty || myForm.get('city').touched)" class="alert alert-danger">City is required</div>
+      <span><label for="city">State *</label></span>
+      <span class="item">
+      <select name="ddlState" class="form-control" formControlName="state">
+        <option *ngFor="let state of states;index as i" value="{{state}}">{{state}}</option>
+      </select>
+      <div *ngIf="myForm.get('state').invalid && (myForm.get('state').dirty || myForm.get('state').touched)" class="alert alert-danger">State is required</div>
+      </span>
+    </div>
+    <div class="item">
+      <span class="item">
+        <label for="email">Email *</label>
+      </span>
+      <span class="item">
+        <input type="email" placeholder="Email Address" class="form-control" formControlName="email">
+        <div *ngIf="myForm.get('email').errors?.required && (myForm.get('email').dirty || myForm.get('email').touched)" class="alert alert-danger">Email is required</div>
+        <div *ngIf="myForm.get('email').errors?.invalidEmail && (myForm.get('email').dirty || myForm.get('email').touched)" class="alert alert-danger">
+          Email format is invalid. Acceptable format(s) {{myForm.get('email').errors.invalidEmail.allowedEmail}} </div>
+      </span>
+    </div>
+    <div class="item">
+      <span class="item">
+        <label for="email">Phone *</label>
+      </span>
+      <span class="item">
+        <input type="text" placeholder="Phone" class="form-control" required formControlName="phone" validatePhone="123-456-7890">
+        <div *ngIf="myForm.get('phone').errors?.required && (myForm.get('phone').dirty || myForm.get('phone').touched)" class="alert alert-danger">Phone is required</div>
+        <div *ngIf="myForm.get('phone').errors?.invalidPhone && (myForm.get('phone').dirty || myForm.get('phone').touched)" class="alert alert-danger">
+            {{myForm.get('phone').errors.invalidPhone.errorMessage}} Allowed format is {{myForm.get('phone').errors.invalidPhone.allowedFormat}}
+        </div>
+        <div *ngIf="myForm.get('phone').errors?.maxlength && (myForm.get('phone').dirty || myForm.get('phone').touched)" class="alert alert-danger">
+            Phone format is invalid, it should be 10 digits.
+        </div>
+      </span>
+    </div>  
+    <div class="item">
+      * <input type="checkbox" name="acceptTermsPolicy" formControlName="tc"> I understand and accept terms and policies for submitting the information
+      <div *ngIf="myForm.get('tc').invalid && myForm.get('tc').touched" class="alert alert-danger">Accept Terms & Conditions required</div>
+    </div>
+    <div class="item">
+      <input type="submit" value="Submit">
+    </div>
+    <div class="item">
+      <p>Form Values : {{myForm.value|json}}</p>
+      <p>Validation Errors : {{myForm.controls.name.errors|json}}</p>
+      <p>Form Valid : {{myForm.valid}}</p>
+    </div>
+  </div>
+</form>
