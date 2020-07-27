@@ -13,6 +13,8 @@ import { SharedServiceModule } from './modules/shared-service/shared-service.mod
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogReferenceService } from './services/confirmation-dialog-reference.service';
+import { ErrorDirective } from './directives/error.directive';
+import * as fromPipes from './pipes';
 
 @NgModule({
   imports: [ 
@@ -25,8 +27,10 @@ import { ConfirmationDialogReferenceService } from './services/confirmation-dial
     AppComponent, 
     HelloComponent,
     StandardFormComponent, 
+    ReactiveFormComponent,
     ...fromDirectives.directives, 
-    ReactiveFormComponent],
+    ...fromPipes.pipes
+  ],
   entryComponents:[ ConfirmationDialogComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ConfirmationDialogService, ConfirmationDialogReferenceService]
