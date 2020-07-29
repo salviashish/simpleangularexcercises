@@ -6,15 +6,24 @@ import { FormGroup } from '@angular/forms';
 })
 export class BaseComponent implements OnInit {
 
-    constructor(private form:FormGroup){}
+    private _form:FormGroup;
 
-    getRef(): ViewContainerRef{
-      return;
+    constructor(private viewContainer:ViewContainerRef){}
+
+    set formInstance(form:FormGroup){
+      this._form = form;
     }
 
-    IsDirtry()
+    getRef(): ViewContainerRef{
+      return this.viewContainer;
+    }
+
+    IsDirty()
     {
-      return this.form.valid;
+      console.log('Invoked base component function');
+      console.log(`touched: ${this._form.touched}`);
+      console.log(`dirty: ${this._form.dirty}`);      
+      return (this._form.touched || this._form.dirty);
     }
 
     ngOnInit(){}

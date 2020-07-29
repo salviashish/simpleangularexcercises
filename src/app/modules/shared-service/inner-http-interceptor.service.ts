@@ -19,25 +19,10 @@ export class InnerHttpInterceptorService implements HttpInterceptor{
         map(response=>{
           if(response instanceof HttpResponse)
           {
-            console.log('HttpInterceptor Response : '+response);
+            console.log(`HttpInterceptor Response : ${response}`);
             return response;
           }
         })
       );
-
-    //   console.log('INTERCEPTOR');
-    // let newHeaders = req.headers;
-    //   newHeaders = newHeaders.append('xsrfcontent', 'some gibberish value');
-    // const authReq = req.clone({headers: newHeaders});
-    //  return next.handle(authReq);
-     //.pipe(
-    //   map(resp => {
-    //     if (resp instanceof HttpResponse) {
-    //       console.log(resp);
-    //       return  resp.clone({ body: [{title: 'Replaced data in interceptor'}] });
-    //     }
-    //   })
-    // );
-
   }
 }

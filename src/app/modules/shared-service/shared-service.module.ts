@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import * as fromServices from '.';
 import { InnerHttpClientService } from './inner-http-client.service';
 import { InnerHttpInterceptorService } from './inner-http-interceptor.service';
+import { DirtyCheckGuard } from './dirty-check.guard';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ export class SharedServiceModule {
         InnerHttpClientService,
         {
           provide: HTTP_INTERCEPTORS,useClass:InnerHttpInterceptorService,multi:true
-        }
+        },
+        DirtyCheckGuard
       ]
     };
   }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BaseComponent } from '../base.component'
+
 @Component({
   selector: 'app-standard-form',
   templateUrl: './standard-form.component.html',
@@ -8,8 +9,8 @@ import { BaseComponent } from '../base.component'
 })
 export class StandardFormComponent extends BaseComponent implements OnInit {
 
-  constructor(){ 
-    super(null);
+  constructor(viewContainer:ViewContainerRef){
+    super(viewContainer)
   }
   states:string[];
 
@@ -28,4 +29,7 @@ export class StandardFormComponent extends BaseComponent implements OnInit {
     console.log(form.value);
   }
 
+  IsDirty():boolean{
+    return true;
+  }
 }

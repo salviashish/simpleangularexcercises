@@ -15,6 +15,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { ConfirmationDialogReferenceService } from './services/confirmation-dialog-reference.service';
 import { ErrorDirective } from './directives/error.directive';
 import * as fromPipes from './pipes';
+import { DirtyCheckGuard } from './modules/shared-service/dirty-check.guard';
 
 @NgModule({
   imports: [ 
@@ -33,6 +34,6 @@ import * as fromPipes from './pipes';
   ],
   entryComponents:[ ConfirmationDialogComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [ConfirmationDialogService, ConfirmationDialogReferenceService]
+  providers: [ConfirmationDialogService, ConfirmationDialogReferenceService,DirtyCheckGuard]
 })
 export class AppModule { }

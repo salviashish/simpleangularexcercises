@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import { BaseComponent } from "../../base.component";
 import { ConfirmationDialogService } from "../../services/confirmation-dialog.service";
 import { ConfirmationDialogReferenceService } from "../../services/confirmation-dialog-reference.service";
+import { ReactiveFormComponent } from "../../reactive-form/reactive-form.component";
 
 @Injectable()
 export class DirtyCheckGuard implements CanDeactivate<BaseComponent> {
@@ -17,21 +18,23 @@ export class DirtyCheckGuard implements CanDeactivate<BaseComponent> {
     private confirmationDialogReferenceService: ConfirmationDialogReferenceService){}
 
   canDeactivate(
-    component: BaseComponent,
+    component: ReactiveFormComponent,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot
   ): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let canNavigate: boolean = component.IsDirtry();
-
-    if(canNavigate==false)
+    console.log('DirtyCheckGuard');
+    let isDirty: boolean = component.IsDirty();
+    let canNavigate = !isDirty;
+    if(isDirty)
     {
-      canNavigate = this.confirmationDialogService.loadComponent(component.getRef(),nextState.url);
-      this.confirmationDialogReferenceService.allow = false;
+      canNavigate = window.confirm("Are you sure, you want to discard the changes?");
+      // canNavigate = this.confirmationDialogService.loadComponent(component.getRef(),nextState.url);
+      // this.confirmationDialogReferenceService.allow = false;
     }
-    else{
-      this.confirmationDialogReferenceService.allow = false;
-    }
+    // else{
+    //   this.confirmationDialogReferenceService.allow = false;
+    // }
     return canNavigate;
   }
 }
